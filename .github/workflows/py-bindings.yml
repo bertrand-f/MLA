@@ -57,7 +57,7 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          pip install pytest==8.3.5 
           cd bindings/python && pytest
 
   windows:
@@ -94,7 +94,7 @@ jobs:
           python3 -m venv .venv
           source .venv/Scripts/activate
           pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          pip install pytest==8.3.5 
           cd bindings/python && pytest
 
   macos:
@@ -128,7 +128,7 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          pip install pytest==8.3.5 
           cd bindings/python && pytest
 
   sdist:
