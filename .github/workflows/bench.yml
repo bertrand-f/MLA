@@ -4,9 +4,8 @@
 #
 name: Benchmark PR
 
-
-  permissions:
-    contents: read
+permissions:
+  contents: read
 
 on:
   issue_comment:
