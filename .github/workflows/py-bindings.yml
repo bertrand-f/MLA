@@ -61,8 +61,12 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          echo "pip-tools==7.5.3 --hash=sha256:3aac0c473240ae90db7213c033401f345b05197293ccbdd2704e52e7a783785e" > requirements-pip-tools.txt
+          pip install -r requirements-pip-tools.txt --require-hashes 
+          pip-compile --generate-hashes --output-file=requirements-mla.txt mla-archive
+          pip install -r requirements-mla.txt --require-hashes --find-links dist --force-reinstall
+          echo "pytest==9.0.2 --hash=sha256:711ffd45bf766d5264d487b917733b453d917afd2b0ad65223959f59089f875b" > requirements-pytest.txt
+          pip install -r requirements-pytest.txt --require-hashes
           cd bindings/python && pytest
       - name: mypy stubtest and type checking
         if: ${{ startsWith(matrix.platform.target, 'x86_64') }}
@@ -71,7 +75,8 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install mypy
+          echo "mypy==1.19.1 --hash=sha256:5f05aa3d375b385734388e844bc01733bd33c644ab48e9684faa54e5389775ec" > requirements.txt
+          pip install -r requirements.txt --require-hashes
           # it searchs for mla.mla but we can't have a module with the same name as the package
           # so we use mla.pyi instead of mla/__init__.pyi
           # and we need to use the --ignore-missing-stub option
@@ -151,8 +156,12 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/Scripts/activate
-          pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          echo "pip-tools==7.5.3 --hash=sha256:3aac0c473240ae90db7213c033401f345b05197293ccbdd2704e52e7a783785e" > requirements-pip-tools.txt
+          pip install -r requirements-pip-tools.txt --require-hashes 
+          pip-compile --generate-hashes --output-file=requirements-mla.txt mla-archive
+          pip install -r requirements-mla.txt --require-hashes --find-links dist --force-reinstall
+          echo "pytest==9.0.2 --hash=sha256:711ffd45bf766d5264d487b917733b453d917afd2b0ad65223959f59089f875b" > requirements-pytest.txt
+          pip install -r requirements-pytest.txt --require-hashes
           cd bindings/python && pytest
       - name: mypy stubtest and type checking
         if: ${{ !startsWith(matrix.platform.target, 'aarch64') }}
@@ -161,7 +170,8 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/Scripts/activate
-          pip install mypy
+          echo "mypy==1.19.1 --hash=sha256:5f05aa3d375b385734388e844bc01733bd33c644ab48e9684faa54e5389775ec" > requirements.txt
+          pip install -r requirements.txt --require-hashes
           # it searchs for mla.mla but we can't have a module with the same name as the package
           # so we use mla.pyi instead of mla/__init__.pyi
           # and we need to use the --ignore-missing-stub option
@@ -205,8 +215,12 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          echo "pip-tools==7.5.3 --hash=sha256:3aac0c473240ae90db7213c033401f345b05197293ccbdd2704e52e7a783785e" > requirements-pip-tools.txt
+          pip install -r requirements-pip-tools.txt --require-hashes 
+          pip-compile --generate-hashes --output-file=requirements-mla.txt mla-archive
+          pip install -r requirements-mla.txt --require-hashes --find-links dist --force-reinstall
+          echo "pytest==9.0.2 --hash=sha256:711ffd45bf766d5264d487b917733b453d917afd2b0ad65223959f59089f875b" > requirements-pytest.txt
+          pip install -r requirements-pytest.txt --require-hashes
           cd bindings/python && pytest
       - name: mypy stubtest and type checking
         shell: bash
@@ -214,7 +228,8 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install mypy
+          echo "mypy==1.19.1 --hash=sha256:5f05aa3d375b385734388e844bc01733bd33c644ab48e9684faa54e5389775ec" > requirements.txt
+          pip install -r requirements.txt --require-hashes
           # it searchs for mla.mla but we can't have a module with the same name as the package
           # so we use mla.pyi instead of mla/__init__.pyi
           # and we need to use the --ignore-missing-stub option
