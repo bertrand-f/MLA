@@ -61,8 +61,13 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          pip install --require-hashes -r .github/requirements/pip-tools.lock
+          # Get the wheel name & hash for in order to be installed with pip install --require-hashes -r 
+          WHEEL=$(ls dist/*.whl | head -1)
+          HASH=$(python -m pip hash "$WHEEL" | grep -- '--hash=')
+          echo "$WHEEL $HASH" > requirements_mla.txt     
+          pip install --require-hashes -r requirements_mla.txt --find-links dist --force-reinstall  
+          pip install --require-hashes -r .github/requirements/pip-pytest.lock
           cd bindings/python && pytest
       - name: mypy stubtest and type checking
         if: ${{ startsWith(matrix.platform.target, 'x86_64') }}
@@ -71,7 +76,7 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install mypy
+          pip install --require-hashes -r .github/requirements/pip-mypy.lock
           # it searchs for mla.mla but we can't have a module with the same name as the package
           # so we use mla.pyi instead of mla/__init__.pyi
           # and we need to use the --ignore-missing-stub option
@@ -151,8 +156,13 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/Scripts/activate
-          pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          pip install --require-hashes -r .github/requirements/pip-tools.lock
+          # Get the wheel name & hash for in order to be installed with pip install --require-hashes -r 
+          WHEEL=$(ls dist/*.whl | head -1)
+          HASH=$(python -m pip hash "$WHEEL" | grep -- '--hash=')
+          echo "$WHEEL $HASH" > requirements_mla.txt     
+          pip install --require-hashes -r requirements_mla.txt --find-links dist --force-reinstall  
+          pip install --require-hashes -r .github/requirements/pip-pytest.lock
           cd bindings/python && pytest
       - name: mypy stubtest and type checking
         if: ${{ !startsWith(matrix.platform.target, 'aarch64') }}
@@ -161,7 +171,7 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/Scripts/activate
-          pip install mypy
+          pip install --require-hashes -r .github/requirements/pip-mypy.lock
           # it searchs for mla.mla but we can't have a module with the same name as the package
           # so we use mla.pyi instead of mla/__init__.pyi
           # and we need to use the --ignore-missing-stub option
@@ -205,8 +215,13 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install mla-archive --find-links dist --force-reinstall
-          pip install pytest
+          pip install --require-hashes -r .github/requirements/pip-tools.lock
+          # Get the wheel name & hash for in order to be installed with pip install --require-hashes -r 
+          WHEEL=$(ls dist/*.whl | head -1)
+          HASH=$(python -m pip hash "$WHEEL" | grep -- '--hash=')
+          echo "$WHEEL $HASH" > requirements_mla.txt     
+          pip install --require-hashes -r requirements_mla.txt --find-links dist --force-reinstall  
+          pip install --require-hashes -r .github/requirements/pip-pytest.lock
           cd bindings/python && pytest
       - name: mypy stubtest and type checking
         shell: bash
@@ -214,7 +229,7 @@ jobs:
           set -e
           python3 -m venv .venv
           source .venv/bin/activate
-          pip install mypy
+          pip install --require-hashes -r .github/requirements/pip-mypy.lock
           # it searchs for mla.mla but we can't have a module with the same name as the package
           # so we use mla.pyi instead of mla/__init__.pyi
           # and we need to use the --ignore-missing-stub option
